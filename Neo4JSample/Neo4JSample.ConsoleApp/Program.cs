@@ -25,7 +25,7 @@ namespace Neo4JSample.ConsoleApp
             {
 
                 // Create Indices for faster Lookups:
-                await client.CreateIndices();
+                //await client.CreateIndices();
 
                 // Create Base Data:
                 await client.CreateMovies(service.Movies);
