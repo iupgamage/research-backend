@@ -40,13 +40,20 @@ namespace Neo4JSample.API.Controllers
                 // Create Indices for faster Lookups:
                 //await client.CreateIndices();
 
-                // Create Base Data:
-                await client.CreateMovies(service.Movies);
-                await client.CreatePersons(service.Persons);
-                await client.CreateGenres(service.Genres);
+                //// Create Base Data:
+                //await client.CreateMovies(service.Movies);
+                //await client.CreatePersons(service.Persons);
+                //await client.CreateGenres(service.Genres);
 
-                // Create Relationships:
-                await client.CreateRelationships(service.Metadatas);
+                //// Create Relationships:
+                //await client.CreateRelationships(service.Metadatas);
+
+                await client.CreateServices(service.Services);
+                await client.CreateFrontEnds(service.FrontEnds);
+                await client.CreateDatabases(service.Databases);
+                await client.CreateRelationships_Service(service.Metadatas_service);
+                await client.CreateRelationships_Database(service.Metadatas_database);
+                await client.CreateRelationships_FrontEnd(service.Metadatas_frontend);
             }
         }
 
