@@ -114,7 +114,7 @@ namespace Neo4JSample
         {
             string cypher = new StringBuilder()
                 .AppendLine("UNWIND $services AS service")
-                .AppendLine("MERGE (s:Service {name: service.name})")
+                .AppendLine("MERGE (s:Service {name: service.name, servicechain: service.servicechain})")
                 .AppendLine("SET s = service")
                 .ToString();
 
@@ -157,15 +157,15 @@ namespace Neo4JSample
             string cypher = new StringBuilder()
                 .AppendLine("UNWIND $metadatas AS metadata")
                  // Find the Service:
-                 .AppendLine("MATCH (m:Service { name: metadata.service.name })")
+                 .AppendLine("MATCH (m:Service { name: metadata.service.name, servicechain: metadata.service.servicechain })")
                  // Create FromService Relationships:
                  .AppendLine("UNWIND metadata.fromservices AS fromservice")
-                 .AppendLine("MATCH (a:Service { name: fromservice.name })")
+                 .AppendLine("MATCH (a:Service { name: fromservice.name, servicechain: fromservice.servicechain })")
                  .AppendLine("MERGE (a)-[r:S_INVOKES_S]->(m)")
                  // Create ToService Relationships:
                  .AppendLine("WITH metadata, m")
                  .AppendLine("UNWIND metadata.toservices AS toservice")
-                 .AppendLine("MATCH (c:Service { name: toservice.name })")
+                 .AppendLine("MATCH (c:Service { name: toservice.name, servicechain: toservice.servicechain })")
                  .AppendLine("MERGE (m)-[r:S_INVOKES_S]->(c)")
                 // Create FrontEnd Relationship:
                 //.AppendLine("WITH metadata, m")
@@ -219,9 +219,101 @@ namespace Neo4JSample
             }
         }
 
+        public List<ServiceDegreeInfo> GetDegrees()
+        {
+            List<ServiceDegreeInfo> serviceDegreeInfos = new List<ServiceDegreeInfo>();
+
+            string cypher = new StringBuilder()
+                .AppendLine("MATCH (s:Service)")
+                 // Find the Service:
+                 .AppendLine("WHERE s.servicechain = 'null'")
+                // Create FrontEnd relationship:
+                .AppendLine("WITH s AS service, SIZE((s)<-[]-()) AS degree_in, SIZE((s)-[]->()) AS degree_out, SIZE((s) -[] - ()) AS degree")
+                .AppendLine("RETURN service, degree_in, degree_out, degree")
+                .ToString();
+
+            using (var session = driver.Session())
+            {
+                //session.Run(cypher, new Dictionary<string, object>() { { "metadatas", ParameterSerializer.ToDictionary(metadatas) } });
+                var results = session.Run(cypher);
+                foreach (var record in results)
+                {
+                    ServiceDegreeInfo serviceDegreeInfo = new ServiceDegreeInfo();
+                    var ServiceInfo = record["service"].As<INode>();
+                    serviceDegreeInfo.Id = ServiceInfo.Properties["id"].As<int>();
+                    serviceDegreeInfo.Name = ServiceInfo.Properties["name"].As<string>();
+
+                    serviceDegreeInfo.Degree_out = record["degree_out"].As<int>();
+                    serviceDegreeInfo.Degree_in = record["degree_in"].As<int>();
+                    serviceDegreeInfo.Degree = record["degree"].As<int>();
+
+                    //servicesInfo.serviceDegreeInfos.Add(serviceDegreeInfo);
+                    serviceDegreeInfos.Add(serviceDegreeInfo);
+                }
+            }
+            return serviceDegreeInfos;
+        }
+
+        public List<ServiceDegreeInfo> GetCC()
+        {
+            List<ServiceDegreeInfo> serviceDegreeInfos = new List<ServiceDegreeInfo>();
+
+            //create graph
+            string cypher1 = new StringBuilder()
+                .AppendLine("CALL gds.graph.create('cc_graph','Service', {S_INVOKES_S: {orientation: 'UNDIRECTED'}})")
+                .ToString();
+
+            //create 
+            string cypher2 = new StringBuilder()
+                .AppendLine("CALL gds.localClusteringCoefficient.stream('cc_graph')")
+                 .AppendLine("YIELD nodeId, localClusteringCoefficient")
+                // Create FrontEnd relationship:
+                .AppendLine("RETURN gds.util.asNode(nodeId).id as id, gds.util.asNode(nodeId).name AS name, localClusteringCoefficient")
+                .AppendLine("ORDER BY localClusteringCoefficient DESC")
+                .ToString();
+
+            //delete graph
+            string cypher3 = new StringBuilder()
+                .AppendLine("CALL gds.graph.drop('cc_graph') YIELD graphName")
+                .ToString();
+
+            using (var session = driver.Session())
+            {
+                session.Run(cypher1);
+                var results = session.Run(cypher2);
+                foreach (var record in results)
+                {
+                    ServiceDegreeInfo serviceDegreeInfo = new ServiceDegreeInfo();
+                    serviceDegreeInfo.Id = record["id"].As<int>();
+                    serviceDegreeInfo.Name = record["name"].As<string>();
+                    serviceDegreeInfo.CC = record["localClusteringCoefficient"].As<float>();
+
+                    serviceDegreeInfos.Add(serviceDegreeInfo);
+                }
+                session.Run(cypher3);
+            }
+            return serviceDegreeInfos;
+        }
+
         public void Dispose()
         {
             driver?.Dispose();
         }
+
+        public class ServicesInfo
+        {
+            public List<ServiceDegreeInfo> serviceDegreeInfos { get; set; }
+        }
+
+        public class ServiceDegreeInfo
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public int Degree_out { get; set; }
+            public int Degree_in { get; set; }
+            public int Degree { get; set; }
+            public float CC { get; set; }
+        }
+
     }
 }

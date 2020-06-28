@@ -12,5 +12,8 @@ namespace Neo4JSample.Model
 
         [JsonProperty("name")]
         public string Name { get; set; }
+
+        [JsonProperty("servicechain")]
+        public string ServiceChain { get; set; }
     }
 }

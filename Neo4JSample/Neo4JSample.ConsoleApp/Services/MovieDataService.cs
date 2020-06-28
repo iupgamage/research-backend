@@ -18,11 +18,15 @@ namespace Neo4JSample.ConsoleApp.Services
 
         IList<Service> Services { get; }
 
+        IList<Service> Services_sc1 { get; }
+
         IList<FrontEnd> FrontEnds { get; }
 
         IList<Database> Databases { get; }
 
         IList<ServiceInformation> Metadatas_service { get; }
+
+        IList<ServiceInformation> Metadatas_service_sc1 { get; }
 
         IList<ServiceInformation> Metadatas_frontend { get; }
 
@@ -46,31 +50,64 @@ namespace Neo4JSample.ConsoleApp.Services
         private static Service Service1 = new Service
         {
             Id = "1",
-            Name = "Service1"
+            Name = "Service1",
+            ServiceChain = "null"
+        };
+
+        private static Service Service1_sc1 = new Service
+        {
+            Id = "1",
+            Name = "Service1",
+            ServiceChain = "1,3,5"
+        };
+
+        private static Service Service1_sc2 = new Service
+        {
+            Id = "1",
+            Name = "Service1",
+            ServiceChain = "1,2,3,4,5"
         };
 
         private static Service Service2 = new Service
         {
             Id = "2",
-            Name = "Service2"
+            Name = "Service2",
+            ServiceChain = "null"
         };
 
         private static Service Service3 = new Service
         {
             Id = "3",
-            Name = "Service3"
+            Name = "Service3",
+            ServiceChain = "null"
+        };
+
+        private static Service Service3_sc1 = new Service
+        {
+            Id = "3",
+            Name = "Service3",
+            ServiceChain = "1,3,5"
         };
 
         private static Service Service4 = new Service
         {
             Id = "4",
-            Name = "Service4"
+            Name = "Service4",
+            ServiceChain = "null"
         };
 
         private static Service Service5 = new Service
         {
             Id = "5",
-            Name = "Service5"
+            Name = "Service5",
+            ServiceChain = "null"
+        };
+
+        private static Service Service5_sc1 = new Service
+        {
+            Id = "5",
+            Name = "Service5",
+            ServiceChain = "1,3,5"
         };
 
         //private static Person Actor0 = new Person
@@ -144,10 +181,19 @@ namespace Neo4JSample.ConsoleApp.Services
             Service = Service1
         };
 
+        //S1_sc1
+        private static ServiceInformation Metadata1_sc1 = new ServiceInformation
+        {
+            //FromServices = new[] {  },
+            //FrontEnd = FrontEnd1,
+            ToServices = new[] { Service3_sc1 },
+            Service = Service1_sc1
+        };
+
         //S2
         private static ServiceInformation Metadata2 = new ServiceInformation
         {
-            FromServices = new[] { Service1 },
+            FromServices = new[] { Service1, Service4 },
             //FrontEnd = "",
             ToServices = new[] { Service5 },
             Service = Service2
@@ -156,10 +202,19 @@ namespace Neo4JSample.ConsoleApp.Services
         //S3
         private static ServiceInformation Metadata3 = new ServiceInformation
         {
-            FromServices = new[] { Service1 },
+            FromServices = new[] { Service1, Service4 },
             //FrontEnd = "",
             ToServices = new[] { Service5 },
             Service = Service3
+        };
+
+        //S3_sc1
+        private static ServiceInformation Metadata3_sc1 = new ServiceInformation
+        {
+            FromServices = new[] { Service1_sc1 },
+            //FrontEnd = "",
+            ToServices = new[] { Service5_sc1 },
+            Service = Service3_sc1
         };
 
         //S4
@@ -167,7 +222,7 @@ namespace Neo4JSample.ConsoleApp.Services
         {
             FromServices = new[] { Service1 },
             //FrontEnd = "",
-            ToServices = new[] { Service5 },
+            ToServices = new[] { Service2, Service3, Service5 },
             Service = Service4
         };
 
@@ -179,6 +234,16 @@ namespace Neo4JSample.ConsoleApp.Services
             //ToServices = new[] { Service5 },
             Databases = new[] { Database1 },
             Service = Service5
+        };
+
+        //S5_sc1
+        private static ServiceInformation Metadata5_sc1 = new ServiceInformation
+        {
+            FromServices = new[] { Service3_sc1 },
+            //FrontEnd = "",
+            //ToServices = new[] { Service5 },
+            //Databases = new[] { Database1 },
+            Service = Service5_sc1
         };
 
         //public IList<Genre> Genres
@@ -221,6 +286,14 @@ namespace Neo4JSample.ConsoleApp.Services
             }
         }
 
+        public IList<Service> Services_sc1
+        {
+            get
+            {
+                return new[] { Service1_sc1, Service3_sc1, Service5_sc1 };
+            }
+        }
+
         public IList<FrontEnd> FrontEnds
         {
             get
@@ -242,6 +315,14 @@ namespace Neo4JSample.ConsoleApp.Services
             get
             {
                 return new[] { Metadata1, Metadata2, Metadata3, Metadata4, Metadata5 };
+            }
+        }
+
+        public IList<ServiceInformation> Metadatas_service_sc1
+        {
+            get
+            {
+                return new[] { Metadata1_sc1, Metadata3_sc1, Metadata5_sc1 };
             }
         }
 
