@@ -112,9 +112,15 @@ namespace Neo4JSample
 
         public async Task CreateServices(IList<Service> services)
         {
+            //string cypher = new StringBuilder()
+            //    .AppendLine("UNWIND $services AS service")
+            //    .AppendLine("MERGE (s:Service {name: service.name, servicechain: service.servicechain})")
+            //    .AppendLine("SET s = service")
+            //    .ToString();
+
             string cypher = new StringBuilder()
                 .AppendLine("UNWIND $services AS service")
-                .AppendLine("MERGE (s:Service {name: service.name, servicechain: service.servicechain})")
+                .AppendLine("MERGE (s:Service {name: service.name, traceid: service.traceid})")
                 .AppendLine("SET s = service")
                 .ToString();
 
@@ -154,28 +160,47 @@ namespace Neo4JSample
 
         public async Task CreateRelationships_Service(IList<ServiceInformation> metadatas)
         {
+            //string cypher = new StringBuilder()
+            //    .AppendLine("UNWIND $metadatas AS metadata")
+            //     // Find the Service:
+            //     .AppendLine("MATCH (m:Service { name: metadata.service.name, servicechain: metadata.service.servicechain })")
+            //     // Create FromService Relationships:
+            //     .AppendLine("UNWIND metadata.fromservices AS fromservice")
+            //     .AppendLine("MATCH (a:Service { name: fromservice.name, servicechain: fromservice.servicechain })")
+            //     .AppendLine("MERGE (a)-[r:S_INVOKES_S]->(m)")
+            //     // Create ToService Relationships:
+            //     .AppendLine("WITH metadata, m")
+            //     .AppendLine("UNWIND metadata.toservices AS toservice")
+            //     .AppendLine("MATCH (c:Service { name: toservice.name, servicechain: toservice.servicechain })")
+            //     .AppendLine("MERGE (m)-[r:S_INVOKES_S]->(c)")
+            //    // Create FrontEnd Relationship:
+            //    //.AppendLine("WITH metadata, m")
+            //    //.AppendLine("MATCH (d:FrontEnd { name: metadata.frontend.name })")
+            //    //.AppendLine("MERGE (d)-[r:F_INVOKES_S]->(m)")
+            //    // Create Database relationships:
+            //    //.AppendLine("WITH metadata, m")
+            //    //.AppendLine("UNWIND metadata.databases AS database")
+            //    //.AppendLine("MATCH (g:Database { name: database.name})")
+            //    //.AppendLine("MERGE (m)-[r3:S_INVOKES_D]->(g)")
+            //    .ToString();
+
             string cypher = new StringBuilder()
                 .AppendLine("UNWIND $metadatas AS metadata")
                  // Find the Service:
-                 .AppendLine("MATCH (m:Service { name: metadata.service.name, servicechain: metadata.service.servicechain })")
+                 .AppendLine("MERGE (m:Service { name: metadata.service.name, traceid: metadata.service.traceid })")
+                 .AppendLine("SET m = metadata.service")
                  // Create FromService Relationships:
+                 .AppendLine("WITH metadata, m")
                  .AppendLine("UNWIND metadata.fromservices AS fromservice")
-                 .AppendLine("MATCH (a:Service { name: fromservice.name, servicechain: fromservice.servicechain })")
+                 .AppendLine("MERGE (a:Service { name: fromservice.name, traceid: fromservice.traceid })")
+                 .AppendLine("SET a = fromservice")
                  .AppendLine("MERGE (a)-[r:S_INVOKES_S]->(m)")
                  // Create ToService Relationships:
                  .AppendLine("WITH metadata, m")
                  .AppendLine("UNWIND metadata.toservices AS toservice")
-                 .AppendLine("MATCH (c:Service { name: toservice.name, servicechain: toservice.servicechain })")
+                 .AppendLine("MERGE (c:Service { name: toservice.name, traceid: toservice.traceid })")
+                 .AppendLine("SET c = toservice")
                  .AppendLine("MERGE (m)-[r:S_INVOKES_S]->(c)")
-                // Create FrontEnd Relationship:
-                //.AppendLine("WITH metadata, m")
-                //.AppendLine("MATCH (d:FrontEnd { name: metadata.frontend.name })")
-                //.AppendLine("MERGE (d)-[r:F_INVOKES_S]->(m)")
-                // Create Database relationships:
-                //.AppendLine("WITH metadata, m")
-                //.AppendLine("UNWIND metadata.databases AS database")
-                //.AppendLine("MATCH (g:Database { name: database.name})")
-                //.AppendLine("MERGE (m)-[r3:S_INVOKES_D]->(g)")
                 .ToString();
 
             using (var session = driver.Session())
@@ -226,7 +251,7 @@ namespace Neo4JSample
             string cypher = new StringBuilder()
                 .AppendLine("MATCH (s:Service)")
                  // Find the Service:
-                 .AppendLine("WHERE s.servicechain = 'null'")
+                 .AppendLine("WHERE s.traceid = 'null'")
                 // Create FrontEnd relationship:
                 .AppendLine("WITH s AS service, SIZE((s)<-[]-()) AS degree_in, SIZE((s)-[]->()) AS degree_out, SIZE((s) -[] - ()) AS degree")
                 .AppendLine("RETURN service, degree_in, degree_out, degree")
@@ -240,7 +265,7 @@ namespace Neo4JSample
                 {
                     ServiceDegreeInfo serviceDegreeInfo = new ServiceDegreeInfo();
                     var ServiceInfo = record["service"].As<INode>();
-                    serviceDegreeInfo.Id = ServiceInfo.Properties["id"].As<int>();
+                    serviceDegreeInfo.Id = ServiceInfo.Properties["traceid"].As<string>();
                     serviceDegreeInfo.Name = ServiceInfo.Properties["name"].As<string>();
 
                     serviceDegreeInfo.Degree_out = record["degree_out"].As<int>();
@@ -254,21 +279,21 @@ namespace Neo4JSample
             return serviceDegreeInfos;
         }
 
-        public List<ServiceDegreeInfo> GetCC()
+        public List<ServiceCCInfo> GetCC()
         {
-            List<ServiceDegreeInfo> serviceDegreeInfos = new List<ServiceDegreeInfo>();
+            List<ServiceCCInfo> serviceCCInfos = new List<ServiceCCInfo>();
 
             //create graph
             string cypher1 = new StringBuilder()
                 .AppendLine("CALL gds.graph.create('cc_graph','Service', {S_INVOKES_S: {orientation: 'UNDIRECTED'}})")
                 .ToString();
 
-            //create 
+            //get cc of all nodes in main graph and chains - using linq we filter it
             string cypher2 = new StringBuilder()
                 .AppendLine("CALL gds.localClusteringCoefficient.stream('cc_graph')")
                  .AppendLine("YIELD nodeId, localClusteringCoefficient")
-                // Create FrontEnd relationship:
-                .AppendLine("RETURN gds.util.asNode(nodeId).id as id, gds.util.asNode(nodeId).name AS name, localClusteringCoefficient")
+                //.AppendLine("RETURN gds.util.asNode(nodeId).id as id, gds.util.asNode(nodeId).name AS name, localClusteringCoefficient")
+                .AppendLine("RETURN gds.util.asNode(nodeId).traceid as traceid, gds.util.asNode(nodeId).name AS name, localClusteringCoefficient")
                 .AppendLine("ORDER BY localClusteringCoefficient DESC")
                 .ToString();
 
@@ -283,16 +308,16 @@ namespace Neo4JSample
                 var results = session.Run(cypher2);
                 foreach (var record in results)
                 {
-                    ServiceDegreeInfo serviceDegreeInfo = new ServiceDegreeInfo();
-                    serviceDegreeInfo.Id = record["id"].As<int>();
-                    serviceDegreeInfo.Name = record["name"].As<string>();
-                    serviceDegreeInfo.CC = record["localClusteringCoefficient"].As<float>();
+                    ServiceCCInfo serviceCCInfo = new ServiceCCInfo();
+                    serviceCCInfo.GUID = record["traceid"].As<string>();
+                    serviceCCInfo.Name = record["name"].As<string>();
+                    serviceCCInfo.CC = record["localClusteringCoefficient"].As<float>();
 
-                    serviceDegreeInfos.Add(serviceDegreeInfo);
+                    serviceCCInfos.Add(serviceCCInfo);
                 }
                 session.Run(cypher3);
             }
-            return serviceDegreeInfos;
+            return serviceCCInfos;
         }
 
         public void Dispose()
@@ -307,11 +332,18 @@ namespace Neo4JSample
 
         public class ServiceDegreeInfo
         {
-            public int Id { get; set; }
+            public string Id { get; set; }
             public string Name { get; set; }
             public int Degree_out { get; set; }
             public int Degree_in { get; set; }
             public int Degree { get; set; }
+            public float CC { get; set; }
+        }
+
+        public class ServiceCCInfo
+        {
+            public string GUID { get; set; }
+            public string Name { get; set; }
             public float CC { get; set; }
         }
 

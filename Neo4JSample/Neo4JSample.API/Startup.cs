@@ -25,6 +25,7 @@ namespace Neo4JSample.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddHttpClient();
 
             services.AddCors(options =>
             {

@@ -7,6 +7,12 @@ namespace Neo4JSample.Model
 {
     public class ServiceInformation
     {
+        public ServiceInformation()
+        {
+            FromServices = new List<Service>();
+            ToServices = new List<Service>();
+        }
+
         [JsonProperty("service")]
         public Service Service { get; set; }
 
@@ -16,10 +22,10 @@ namespace Neo4JSample.Model
         [JsonProperty("toservices")]
         public IList<Service> ToServices { get; set; }
 
-        [JsonProperty("frontend")]
-        public FrontEnd FrontEnd { get; set; }
+        //[JsonProperty("frontend")]
+        //public FrontEnd FrontEnd { get; set; }
 
-        [JsonProperty("databases")]
-        public IList<Database> Databases { get; set; }
+        //[JsonProperty("databases")]
+        //public IList<Database> Databases { get; set; }
     }
 }

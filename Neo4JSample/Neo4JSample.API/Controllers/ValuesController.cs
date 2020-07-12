@@ -46,12 +46,15 @@ namespace Neo4JSample.API.Controllers
             using (var client = new Neo4JClient(settings))
             {
                 var result = client.GetCC();
-                var result2 = result.GroupBy(x => x.Id).Select(y => new
-                {
-                    id = y.First().Id,
-                    name = y.First().Name,
-                    cc = y.OrderByDescending(c => c.CC).First().CC
-                });
+                //we omit cc values for nodes in chains by checking null for traceid. It will consider only the main graph nodes
+                //var result2 = result.Where(y => y.GUID == "null").GroupBy(x => x.Name).Select(y => new
+                //{
+                //    //id = y.First().Id,
+                //    name = y.First().Name,
+                //    cc = y.OrderByDescending(c => c.CC).First().CC
+                //});
+
+                var result2 = result.Where(y => y.GUID == "null");
 
                 return Ok(result2);
             }
@@ -79,15 +82,17 @@ namespace Neo4JSample.API.Controllers
                 //// Create Relationships:
                 //await client.CreateRelationships(service.Metadatas);
 
-                await client.CreateServices(service.Services);
-                await client.CreateFrontEnds(service.FrontEnds);
-                await client.CreateDatabases(service.Databases);
-                await client.CreateRelationships_Service(service.Metadatas_service);
-                await client.CreateRelationships_Database(service.Metadatas_database);
-                await client.CreateRelationships_FrontEnd(service.Metadatas_frontend);
 
-                await client.CreateServices(service.Services_sc1);
-                await client.CreateRelationships_Service(service.Metadatas_service_sc1);
+
+                //await client.CreateServices(service.Services);
+                //await client.CreateFrontEnds(service.FrontEnds);
+                //await client.CreateDatabases(service.Databases);
+                //await client.CreateRelationships_Service(service.Metadatas_service);
+                //await client.CreateRelationships_Database(service.Metadatas_database);
+                //await client.CreateRelationships_FrontEnd(service.Metadatas_frontend);
+
+                //await client.CreateServices(service.Services_sc1);
+                //await client.CreateRelationships_Service(service.Metadatas_service_sc1);
             }
         }
 
