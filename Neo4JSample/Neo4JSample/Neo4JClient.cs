@@ -160,30 +160,6 @@ namespace Neo4JSample
 
         public async Task CreateRelationships_Service(IList<ServiceInformation> metadatas)
         {
-            //string cypher = new StringBuilder()
-            //    .AppendLine("UNWIND $metadatas AS metadata")
-            //     // Find the Service:
-            //     .AppendLine("MATCH (m:Service { name: metadata.service.name, servicechain: metadata.service.servicechain })")
-            //     // Create FromService Relationships:
-            //     .AppendLine("UNWIND metadata.fromservices AS fromservice")
-            //     .AppendLine("MATCH (a:Service { name: fromservice.name, servicechain: fromservice.servicechain })")
-            //     .AppendLine("MERGE (a)-[r:S_INVOKES_S]->(m)")
-            //     // Create ToService Relationships:
-            //     .AppendLine("WITH metadata, m")
-            //     .AppendLine("UNWIND metadata.toservices AS toservice")
-            //     .AppendLine("MATCH (c:Service { name: toservice.name, servicechain: toservice.servicechain })")
-            //     .AppendLine("MERGE (m)-[r:S_INVOKES_S]->(c)")
-            //    // Create FrontEnd Relationship:
-            //    //.AppendLine("WITH metadata, m")
-            //    //.AppendLine("MATCH (d:FrontEnd { name: metadata.frontend.name })")
-            //    //.AppendLine("MERGE (d)-[r:F_INVOKES_S]->(m)")
-            //    // Create Database relationships:
-            //    //.AppendLine("WITH metadata, m")
-            //    //.AppendLine("UNWIND metadata.databases AS database")
-            //    //.AppendLine("MATCH (g:Database { name: database.name})")
-            //    //.AppendLine("MERGE (m)-[r3:S_INVOKES_D]->(g)")
-            //    .ToString();
-
             string cypher = new StringBuilder()
                 .AppendLine("UNWIND $metadatas AS metadata")
                  // Find the Service:
@@ -194,48 +170,13 @@ namespace Neo4JSample
                  .AppendLine("UNWIND metadata.fromservices AS fromservice")
                  .AppendLine("MERGE (a:Service { name: fromservice.name, traceid: fromservice.traceid })")
                  .AppendLine("SET a = fromservice")
-                 .AppendLine("MERGE (a)-[r:S_INVOKES_S]->(m)")
+                 .AppendLine("MERGE (a)-[r:calls]->(m)")
                  // Create ToService Relationships:
                  .AppendLine("WITH metadata, m")
                  .AppendLine("UNWIND metadata.toservices AS toservice")
                  .AppendLine("MERGE (c:Service { name: toservice.name, traceid: toservice.traceid })")
                  .AppendLine("SET c = toservice")
-                 .AppendLine("MERGE (m)-[r:S_INVOKES_S]->(c)")
-                .ToString();
-
-            using (var session = driver.Session())
-            {
-                session.Run(cypher, new Dictionary<string, object>() { { "metadatas", ParameterSerializer.ToDictionary(metadatas) } });
-            }
-        }
-
-        public async Task CreateRelationships_Database(IList<ServiceInformation> metadatas)
-        {
-            string cypher = new StringBuilder()
-                .AppendLine("UNWIND $metadatas AS metadata")
-                 // Find the Service:
-                 .AppendLine("MATCH (m:Service { name: metadata.service.name })")
-                // Create Database relationships:
-                .AppendLine("UNWIND metadata.databases AS database")
-                .AppendLine("MATCH (g:Database { name: database.name})")
-                .AppendLine("MERGE (m)-[r:S_INVOKES_D]->(g)")
-                .ToString();
-
-            using (var session = driver.Session())
-            {
-                session.Run(cypher, new Dictionary<string, object>() { { "metadatas", ParameterSerializer.ToDictionary(metadatas) } });
-            }
-        }
-
-        public async Task CreateRelationships_FrontEnd(IList<ServiceInformation> metadatas)
-        {
-            string cypher = new StringBuilder()
-                .AppendLine("UNWIND $metadatas AS metadata")
-                 // Find the Service:
-                 .AppendLine("MATCH (m:Service { name: metadata.service.name })")
-                // Create FrontEnd relationship:
-                .AppendLine("MATCH (d:FrontEnd { name: metadata.frontend.name })")
-                .AppendLine("MERGE (d)-[r:F_INVOKES_S]->(m)")
+                 .AppendLine("MERGE (m)-[r:calls]->(c)")
                 .ToString();
 
             using (var session = driver.Session())
@@ -323,11 +264,6 @@ namespace Neo4JSample
         public void Dispose()
         {
             driver?.Dispose();
-        }
-
-        public class ServicesInfo
-        {
-            public List<ServiceDegreeInfo> serviceDegreeInfos { get; set; }
         }
 
         public class ServiceDegreeInfo
