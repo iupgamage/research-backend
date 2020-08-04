@@ -61,6 +61,9 @@ namespace Neo4JSample.API.Controllers
 
                 using (var client_2 = new Neo4JClient(settings))
                 {
+                    //delete the existing graph first
+                    await client_2.DeleteGraph();
+
                     foreach (var trace in traces_model)
                     {
                         //await client_2.CreateServices(trace.services);

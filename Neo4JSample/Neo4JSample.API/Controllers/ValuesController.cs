@@ -60,6 +60,18 @@ namespace Neo4JSample.API.Controllers
             }
         }
 
+        [HttpGet("pathlengths")]
+        public ActionResult GetPathLengths() 
+        {
+            var settings = ConnectionSettings.CreateBasicAuth("bolt://localhost:7687/db/actors", "neo4j", "test_pwd");
+
+            using (var client = new Neo4JClient(settings))
+            {
+                var result = client.GetPathLengths();
+                return Ok(result);
+            }
+        }
+
         // POST api/values
         [HttpPost]
         public async Task Post(/*[FromBody] string value*/)

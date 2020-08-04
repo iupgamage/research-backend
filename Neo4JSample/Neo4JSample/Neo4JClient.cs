@@ -185,6 +185,19 @@ namespace Neo4JSample
             }
         }
 
+        public async Task DeleteGraph()
+        {
+            string cypher = new StringBuilder()
+                .AppendLine("MATCH (n)")
+                 .AppendLine("DETACH DELETE n")
+                .ToString();
+
+            using (var session = driver.Session())
+            {
+                session.Run(cypher);
+            }
+        }
+
         public List<ServiceDegreeInfo> GetDegrees()
         {
             List<ServiceDegreeInfo> serviceDegreeInfos = new List<ServiceDegreeInfo>();
@@ -220,13 +233,39 @@ namespace Neo4JSample
             return serviceDegreeInfos;
         }
 
+        public List<PathLengths> GetPathLengths()
+        {
+            List<PathLengths> pathLengthInfos = new List<PathLengths>();
+
+            string cypher = new StringBuilder()
+                .AppendLine("match p=(par:Service)-[r:calls*1..10]->(ch:Service)")
+                 .AppendLine("where par.traceid<>'null' and ch.traceid<>'null'")
+                .AppendLine("return DISTINCT  par.traceid as traceid, max(length(p)) as length")
+                .ToString();
+
+            using (var session = driver.Session())
+            {
+                var results = session.Run(cypher);
+                foreach (var record in results)
+                {
+                    PathLengths pathLengthInfo = new PathLengths();
+                    //var ServiceInfo = record["service"].As<INode>();
+                    pathLengthInfo.traceid = record["traceid"].As<string>();
+                    pathLengthInfo.length = record["length"].As<string>();
+
+                    pathLengthInfos.Add(pathLengthInfo);
+                }
+            }
+            return pathLengthInfos;
+        }
+
         public List<ServiceCCInfo> GetCC()
         {
             List<ServiceCCInfo> serviceCCInfos = new List<ServiceCCInfo>();
 
             //create graph
             string cypher1 = new StringBuilder()
-                .AppendLine("CALL gds.graph.create('cc_graph','Service', {S_INVOKES_S: {orientation: 'UNDIRECTED'}})")
+                .AppendLine("CALL gds.graph.create('cc_graph','Service', {calls: {orientation: 'UNDIRECTED'}})")
                 .ToString();
 
             //get cc of all nodes in main graph and chains - using linq we filter it
@@ -281,6 +320,12 @@ namespace Neo4JSample
             public string GUID { get; set; }
             public string Name { get; set; }
             public float CC { get; set; }
+        }
+
+        public class PathLengths
+        {
+            public string traceid { get; set; } 
+            public string length { get; set; } 
         }
 
     }
