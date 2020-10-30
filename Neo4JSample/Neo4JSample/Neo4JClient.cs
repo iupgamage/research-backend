@@ -40,124 +40,6 @@ namespace Neo4JSample
         //    }
         //}
 
-        //public async Task CreatePersons(IList<Person> persons)
-        //{
-        //    string cypher = new StringBuilder()
-        //        .AppendLine("UNWIND $persons AS person")
-        //        .AppendLine("MERGE (p:Person {name: person.name})")
-        //        .AppendLine("SET p = person")
-        //        .ToString();
-
-        //    using (var session = driver.Session())
-        //    {
-        //        session.Run(cypher, new Dictionary<string, object>() { { "persons", ParameterSerializer.ToDictionary(persons) } });
-        //    }
-        //}
-
-        //public async Task CreateGenres(IList<Genre> genres)
-        //{
-        //    string cypher = new StringBuilder()
-        //        .AppendLine("UNWIND $genres AS genre")
-        //        .AppendLine("MERGE (g:Genre {name: genre.name})")
-        //        .AppendLine("SET g = genre")
-        //        .ToString();
-
-        //    using (var session = driver.Session())
-        //    {
-        //        session.Run(cypher, new Dictionary<string, object>() { { "genres", ParameterSerializer.ToDictionary(genres) } });
-        //    }
-        //}
-
-        //public async Task CreateMovies(IList<Movie> movies)
-        //{
-        //    string cypher = new StringBuilder()
-        //        .AppendLine("UNWIND $movies AS movie")
-        //        .AppendLine("MERGE (m:Movie {id: movie.id})")
-        //        .AppendLine("SET m = movie")
-        //        .ToString();
-
-        //    using (var session = driver.Session())
-        //    {
-        //        session.Run(cypher, new Dictionary<string, object>() { { "movies", ParameterSerializer.ToDictionary(movies) } });
-        //    }
-        //}
-
-        //public async Task CreateRelationships(IList<MovieInformation> metadatas)
-        //{
-        //    string cypher = new StringBuilder()
-        //        .AppendLine("UNWIND $metadatas AS metadata")
-        //        // Find the Movie:
-        //         .AppendLine("MATCH (m:Movie { title: metadata.movie.title })")
-        //         // Create Cast Relationships:
-        //         .AppendLine("UNWIND metadata.cast AS actor")   
-        //         .AppendLine("MATCH (a:Person { name: actor.name })")
-        //         .AppendLine("MERGE (a)-[r:ACTED_IN]->(m)")
-        //          // Create Director Relationship:
-        //         .AppendLine("WITH metadata, m")
-        //         .AppendLine("MATCH (d:Person { name: metadata.director.name })")
-        //         .AppendLine("MERGE (d)-[r:DIRECTED]->(m)")
-        //        // Add Genres:
-        //        .AppendLine("WITH metadata, m")
-        //        .AppendLine("UNWIND metadata.genres AS genre")
-        //        .AppendLine("MATCH (g:Genre { name: genre.name})")
-        //        .AppendLine("MERGE (m)-[r:GENRE]->(g)")
-        //        .ToString();
-
-
-        //    using (var session = driver.Session())
-        //    {
-        //        session.Run(cypher, new Dictionary<string, object>() { { "metadatas", ParameterSerializer.ToDictionary(metadatas) } });
-        //    }
-        //}
-
-        public async Task CreateServices(IList<Service> services)
-        {
-            //string cypher = new StringBuilder()
-            //    .AppendLine("UNWIND $services AS service")
-            //    .AppendLine("MERGE (s:Service {name: service.name, servicechain: service.servicechain})")
-            //    .AppendLine("SET s = service")
-            //    .ToString();
-
-            string cypher = new StringBuilder()
-                .AppendLine("UNWIND $services AS service")
-                .AppendLine("MERGE (s:Service {name: service.name, traceid: service.traceid})")
-                .AppendLine("SET s = service")
-                .ToString();
-
-            using (var session = driver.Session())
-            {
-                session.Run(cypher, new Dictionary<string, object>() { { "services", ParameterSerializer.ToDictionary(services) } });
-            }
-        }
-
-        public async Task CreateFrontEnds(IList<FrontEnd> frontends)
-        {
-            string cypher = new StringBuilder()
-                .AppendLine("UNWIND $frontends AS frontend")
-                .AppendLine("MERGE (f:FrontEnd {name: frontend.name})")
-                .AppendLine("SET f = frontend")
-                .ToString();
-
-            using (var session = driver.Session())
-            {
-                session.Run(cypher, new Dictionary<string, object>() { { "frontends", ParameterSerializer.ToDictionary(frontends) } });
-            }
-        }
-
-        public async Task CreateDatabases(IList<Database> databases)
-        {
-            string cypher = new StringBuilder()
-                .AppendLine("UNWIND $databases AS database")
-                .AppendLine("MERGE (d:Database {name: database.name})")
-                .AppendLine("SET d = database")
-                .ToString();
-
-            using (var session = driver.Session())
-            {
-                session.Run(cypher, new Dictionary<string, object>() { { "databases", ParameterSerializer.ToDictionary(databases) } });
-            }
-        }
-
         public async Task CreateRelationships_Service(IList<ServiceInformation> metadatas)
         {
             string cypher = new StringBuilder()
@@ -259,43 +141,72 @@ namespace Neo4JSample
             return pathLengthInfos;
         }
 
+        //Not working due to Neo4j update
+        //public List<ServiceCCInfo> GetCC()
+        //{
+        //    List<ServiceCCInfo> serviceCCInfos = new List<ServiceCCInfo>();
+
+        //    //create graph
+        //    string cypher1 = new StringBuilder()
+        //        .AppendLine("CALL gds.graph.create('cc_graph','Service', {calls: {orientation: 'UNDIRECTED'}})")
+        //        .ToString();
+
+        //    //get cc of all nodes in main graph and chains - using linq we filter it
+        //    string cypher2 = new StringBuilder()
+        //        .AppendLine("CALL gds.localClusteringCoefficient.stream('cc_graph')")
+        //         .AppendLine("YIELD nodeId, localClusteringCoefficient")
+        //        //.AppendLine("RETURN gds.util.asNode(nodeId).id as id, gds.util.asNode(nodeId).name AS name, localClusteringCoefficient")
+        //        .AppendLine("RETURN gds.util.asNode(nodeId).traceid as traceid, gds.util.asNode(nodeId).name AS name, localClusteringCoefficient")
+        //        .AppendLine("ORDER BY localClusteringCoefficient DESC")
+        //        .ToString();
+
+        //    //delete graph
+        //    string cypher3 = new StringBuilder()
+        //        .AppendLine("CALL gds.graph.drop('cc_graph') YIELD graphName")
+        //        .ToString();
+
+        //    using (var session = driver.Session())
+        //    {
+        //        session.Run(cypher1);
+        //        var results = session.Run(cypher2);
+        //        foreach (var record in results)
+        //        {
+        //            ServiceCCInfo serviceCCInfo = new ServiceCCInfo();
+        //            serviceCCInfo.GUID = record["traceid"].As<string>();
+        //            serviceCCInfo.Name = record["name"].As<string>();
+        //            serviceCCInfo.CC = record["localClusteringCoefficient"].As<float>();
+
+        //            serviceCCInfos.Add(serviceCCInfo);
+        //        }
+        //        session.Run(cypher3);
+        //    }
+        //    return serviceCCInfos;
+        //}
+
+        //Working currently
         public List<ServiceCCInfo> GetCC()
         {
             List<ServiceCCInfo> serviceCCInfos = new List<ServiceCCInfo>();
 
-            //create graph
-            string cypher1 = new StringBuilder()
-                .AppendLine("CALL gds.graph.create('cc_graph','Service', {calls: {orientation: 'UNDIRECTED'}})")
-                .ToString();
-
-            //get cc of all nodes in main graph and chains - using linq we filter it
-            string cypher2 = new StringBuilder()
-                .AppendLine("CALL gds.localClusteringCoefficient.stream('cc_graph')")
-                 .AppendLine("YIELD nodeId, localClusteringCoefficient")
-                //.AppendLine("RETURN gds.util.asNode(nodeId).id as id, gds.util.asNode(nodeId).name AS name, localClusteringCoefficient")
-                .AppendLine("RETURN gds.util.asNode(nodeId).traceid as traceid, gds.util.asNode(nodeId).name AS name, localClusteringCoefficient")
-                .AppendLine("ORDER BY localClusteringCoefficient DESC")
-                .ToString();
-
-            //delete graph
-            string cypher3 = new StringBuilder()
-                .AppendLine("CALL gds.graph.drop('cc_graph') YIELD graphName")
+            string cypher = new StringBuilder()
+                .AppendLine("CALL algo.triangleCount.stream('Service', 'calls', {concurrency:4})")
+                 .AppendLine("YIELD nodeId, triangles, coefficient")
+                .AppendLine("RETURN algo.asNode(nodeId).traceid as traceid, algo.asNode(nodeId).name AS name, triangles, coefficient")
+                .AppendLine("ORDER BY coefficient DESC")
                 .ToString();
 
             using (var session = driver.Session())
             {
-                session.Run(cypher1);
-                var results = session.Run(cypher2);
+                var results = session.Run(cypher);
                 foreach (var record in results)
                 {
                     ServiceCCInfo serviceCCInfo = new ServiceCCInfo();
                     serviceCCInfo.GUID = record["traceid"].As<string>();
                     serviceCCInfo.Name = record["name"].As<string>();
-                    serviceCCInfo.CC = record["localClusteringCoefficient"].As<float>();
+                    serviceCCInfo.CC = record["coefficient"].As<float>();
 
                     serviceCCInfos.Add(serviceCCInfo);
                 }
-                session.Run(cypher3);
             }
             return serviceCCInfos;
         }

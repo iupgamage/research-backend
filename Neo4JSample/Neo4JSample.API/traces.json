@@ -1,1 +1,490 @@
-[[{"id":"6bed44c3fcacbd19","traceId":"c96442c7a16bafee","parentId":"1e2b2699650ad52c","kind":"SERVER","localEndpoint":{"serviceName":"supplier"},"tags":{"http.path":"/api/supplier/endpoint_2"}},{"id":"6bed44c3fcacbd19","traceId":"c96442c7a16bafee","parentId":"1e2b2699650ad52c","kind":"CLIENT","localEndpoint":{"serviceName":"account"},"tags":{"http.path":"/api/supplier/endpoint_2"}},{"id":"1e2b2699650ad52c","traceId":"c96442c7a16bafee","parentId":"43b05544d06d4939","kind":"SERVER","localEndpoint":{"serviceName":"account"},"tags":{"http.path":"/api/account/endpoint_2"}},{"id":"1e2b2699650ad52c","traceId":"c96442c7a16bafee","parentId":"43b05544d06d4939","kind":"CLIENT","localEndpoint":{"serviceName":"inventory"},"tags":{"http.path":"/api/account/endpoint_2"}},{"id":"43b05544d06d4939","traceId":"c96442c7a16bafee","parentId":"154be36eadd8aef8","kind":"SERVER","localEndpoint":{"serviceName":"inventory"},"tags":{"http.path":"/api/inventory/endpoint_3"}},{"id":"43b05544d06d4939","traceId":"c96442c7a16bafee","parentId":"154be36eadd8aef8","kind":"CLIENT","localEndpoint":{"serviceName":"supplier"},"tags":{"http.path":"/api/inventory/endpoint_3"}},{"id":"154be36eadd8aef8","traceId":"c96442c7a16bafee","parentId":null,"kind":"SERVER","localEndpoint":{"serviceName":"supplier"},"tags":{"http.path":"/api/supplier/endpoint_1"}}],[{"id":"ada1a07935f3b050","traceId":"82e2bd37d5a6ed2b","parentId":"7bde54e83f1c1e85","kind":"SERVER","localEndpoint":{"serviceName":"customer"},"tags":{"http.path":"/api/customer/endpoint_2"}},{"id":"ada1a07935f3b050","traceId":"82e2bd37d5a6ed2b","parentId":"7bde54e83f1c1e85","kind":"CLIENT","localEndpoint":{"serviceName":"sales"},"tags":{"http.path":"/api/customer/endpoint_2"}},{"id":"a156e37e7003fe5d","traceId":"82e2bd37d5a6ed2b","parentId":"e92a487c78449857","kind":"SERVER","localEndpoint":{"serviceName":"product"},"tags":{"http.path":"/api/product/endpoint_2"}},{"id":"a156e37e7003fe5d","traceId":"82e2bd37d5a6ed2b","parentId":"e92a487c78449857","kind":"CLIENT","localEndpoint":{"serviceName":"delivery"},"tags":{"http.path":"/api/product/endpoint_2"}},{"id":"d556c19b5dc43b31","traceId":"82e2bd37d5a6ed2b","parentId":"e92a487c78449857","kind":"CLIENT","localEndpoint":{"serviceName":"delivery"},"tags":{"http.path":"/api/account/endpoint_1"}},{"id":"eb50f01b64d41875","traceId":"82e2bd37d5a6ed2b","parentId":"e92a487c78449857","kind":"CLIENT","localEndpoint":{"serviceName":"delivery"},"tags":{"http.path":"/api/invoice/endpoint_1"}},{"id":"eb50f01b64d41875","traceId":"82e2bd37d5a6ed2b","parentId":"e92a487c78449857","kind":"SERVER","localEndpoint":{"serviceName":"invoice"},"tags":{"http.path":"/api/invoice/endpoint_1"}},{"id":"d556c19b5dc43b31","traceId":"82e2bd37d5a6ed2b","parentId":"e92a487c78449857","kind":"SERVER","localEndpoint":{"serviceName":"account"},"tags":{"http.path":"/api/account/endpoint_1"}},{"id":"79b7388d69805541","traceId":"82e2bd37d5a6ed2b","parentId":"e92a487c78449857","kind":"CLIENT","localEndpoint":{"serviceName":"delivery"},"tags":{"http.path":"/api/purchasehistory/endpoint_1"}},{"id":"79b7388d69805541","traceId":"82e2bd37d5a6ed2b","parentId":"e92a487c78449857","kind":"SERVER","localEndpoint":{"serviceName":"purchasehistory"},"tags":{"http.path":"/api/purchasehistory/endpoint_1"}},{"id":"e92a487c78449857","traceId":"82e2bd37d5a6ed2b","parentId":"b7e39b54c2662aff","kind":"SERVER","localEndpoint":{"serviceName":"delivery"},"tags":{"http.path":"/api/delivery/endpoint_1"}},{"id":"e92a487c78449857","traceId":"82e2bd37d5a6ed2b","parentId":"b7e39b54c2662aff","kind":"CLIENT","localEndpoint":{"serviceName":"inventory"},"tags":{"http.path":"/api/delivery/endpoint_1"}},{"id":"b7e39b54c2662aff","traceId":"82e2bd37d5a6ed2b","parentId":"7bde54e83f1c1e85","kind":"SERVER","localEndpoint":{"serviceName":"inventory"},"tags":{"http.path":"/api/inventory/endpoint_2"}},{"id":"b7e39b54c2662aff","traceId":"82e2bd37d5a6ed2b","parentId":"7bde54e83f1c1e85","kind":"CLIENT","localEndpoint":{"serviceName":"sales"},"tags":{"http.path":"/api/inventory/endpoint_2"}},{"id":"7bde54e83f1c1e85","traceId":"82e2bd37d5a6ed2b","parentId":null,"kind":"SERVER","localEndpoint":{"serviceName":"sales"},"tags":{"http.path":"/api/sales/endpoint_1"}}],[{"id":"c9246a4faab91d07","traceId":"d40327ec498387f4","parentId":"523415033b03183d","kind":"SERVER","localEndpoint":{"serviceName":"product"},"tags":{"http.path":"/api/product/endpoint_1"}},{"id":"c9246a4faab91d07","traceId":"d40327ec498387f4","parentId":"523415033b03183d","kind":"CLIENT","localEndpoint":{"serviceName":"order"},"tags":{"http.path":"/api/product/endpoint_1"}},{"id":"94238b32bdf9e033","traceId":"d40327ec498387f4","parentId":"523415033b03183d","kind":"CLIENT","localEndpoint":{"serviceName":"order"},"tags":{"http.path":"/api/inventory/endpoint_1"}},{"id":"94238b32bdf9e033","traceId":"d40327ec498387f4","parentId":"523415033b03183d","kind":"SERVER","localEndpoint":{"serviceName":"inventory"},"tags":{"http.path":"/api/inventory/endpoint_1"}},{"id":"523415033b03183d","traceId":"d40327ec498387f4","parentId":"8032a44c84a0eb42","kind":"SERVER","localEndpoint":{"serviceName":"order"},"tags":{"http.path":"/api/order/endpoint_1"}},{"id":"523415033b03183d","traceId":"d40327ec498387f4","parentId":"8032a44c84a0eb42","kind":"CLIENT","localEndpoint":{"serviceName":"customer"},"tags":{"http.path":"/api/order/endpoint_1"}},{"id":"8032a44c84a0eb42","traceId":"d40327ec498387f4","parentId":null,"kind":"SERVER","localEndpoint":{"serviceName":"customer"},"tags":{"http.path":"/api/customer/endpoint_1"}}]]
+[
+  [
+    {
+      "id": "6a69dba7b6881536",
+      "traceId": "ef24e85eb3b37154",
+      "parentId": "06969308fee12970",
+      "kind": "SERVER",
+      "localEndpoint": {
+        "serviceName": "supplier"
+      },
+      "tags": {
+        "http.path": "/api/supplier/endpoint_2"
+      }
+    },
+    {
+      "id": "6a69dba7b6881536",
+      "traceId": "ef24e85eb3b37154",
+      "parentId": "06969308fee12970",
+      "kind": "CLIENT",
+      "localEndpoint": {
+        "serviceName": "account"
+      },
+      "tags": {
+        "http.path": "/api/supplier/endpoint_2"
+      }
+    },
+    {
+      "id": "06969308fee12970",
+      "traceId": "ef24e85eb3b37154",
+      "parentId": "db90508c962597ba",
+      "kind": "SERVER",
+      "localEndpoint": {
+        "serviceName": "account"
+      },
+      "tags": {
+        "http.path": "/api/account/endpoint_2"
+      }
+    },
+    {
+      "id": "06969308fee12970",
+      "traceId": "ef24e85eb3b37154",
+      "parentId": "db90508c962597ba",
+      "kind": "CLIENT",
+      "localEndpoint": {
+        "serviceName": "inventory"
+      },
+      "tags": {
+        "http.path": "/api/account/endpoint_2"
+      }
+    },
+    {
+      "id": "db90508c962597ba",
+      "traceId": "ef24e85eb3b37154",
+      "parentId": "8d1209754bb83fa7",
+      "kind": "CLIENT",
+      "localEndpoint": {
+        "serviceName": "supplier"
+      },
+      "tags": {
+        "http.path": "/api/inventory/endpoint_3"
+      }
+    },
+    {
+      "id": "db90508c962597ba",
+      "traceId": "ef24e85eb3b37154",
+      "parentId": "8d1209754bb83fa7",
+      "kind": "SERVER",
+      "localEndpoint": {
+        "serviceName": "inventory"
+      },
+      "tags": {
+        "http.path": "/api/inventory/endpoint_3"
+      }
+    },
+    {
+      "id": "8d1209754bb83fa7",
+      "traceId": "ef24e85eb3b37154",
+      "parentId": null,
+      "kind": "SERVER",
+      "localEndpoint": {
+        "serviceName": "supplier"
+      },
+      "tags": {
+        "http.path": "/api/Supplier/endpoint_1"
+      }
+    }
+  ],
+  [
+    {
+      "id": "8be8c0bea308f3c4",
+      "traceId": "ceadb871d3d87078",
+      "parentId": "44ef091285da5f43",
+      "kind": "SERVER",
+      "localEndpoint": {
+        "serviceName": "customer"
+      },
+      "tags": {
+        "http.path": "/api/customer/endpoint_2"
+      }
+    },
+    {
+      "id": "8be8c0bea308f3c4",
+      "traceId": "ceadb871d3d87078",
+      "parentId": "44ef091285da5f43",
+      "kind": "CLIENT",
+      "localEndpoint": {
+        "serviceName": "sales"
+      },
+      "tags": {
+        "http.path": "/api/customer/endpoint_2"
+      }
+    },
+    {
+      "id": "cf3533bb1c935031",
+      "traceId": "ceadb871d3d87078",
+      "parentId": "3b977125eba16645",
+      "kind": "SERVER",
+      "localEndpoint": {
+        "serviceName": "product"
+      },
+      "tags": {
+        "http.path": "/api/product/endpoint_2"
+      }
+    },
+    {
+      "id": "cf3533bb1c935031",
+      "traceId": "ceadb871d3d87078",
+      "parentId": "3b977125eba16645",
+      "kind": "CLIENT",
+      "localEndpoint": {
+        "serviceName": "delivery"
+      },
+      "tags": {
+        "http.path": "/api/product/endpoint_2"
+      }
+    },
+    {
+      "id": "043611d808538d05",
+      "traceId": "ceadb871d3d87078",
+      "parentId": "3b977125eba16645",
+      "kind": "CLIENT",
+      "localEndpoint": {
+        "serviceName": "delivery"
+      },
+      "tags": {
+        "http.path": "/api/account/endpoint_1"
+      }
+    },
+    {
+      "id": "043611d808538d05",
+      "traceId": "ceadb871d3d87078",
+      "parentId": "3b977125eba16645",
+      "kind": "SERVER",
+      "localEndpoint": {
+        "serviceName": "account"
+      },
+      "tags": {
+        "http.path": "/api/account/endpoint_1"
+      }
+    },
+    {
+      "id": "579af31d585a2b7a",
+      "traceId": "ceadb871d3d87078",
+      "parentId": "3b977125eba16645",
+      "kind": "CLIENT",
+      "localEndpoint": {
+        "serviceName": "delivery"
+      },
+      "tags": {
+        "http.path": "/api/invoice/endpoint_1"
+      }
+    },
+    {
+      "id": "579af31d585a2b7a",
+      "traceId": "ceadb871d3d87078",
+      "parentId": "3b977125eba16645",
+      "kind": "SERVER",
+      "localEndpoint": {
+        "serviceName": "invoice"
+      },
+      "tags": {
+        "http.path": "/api/invoice/endpoint_1"
+      }
+    },
+    {
+      "id": "3836eff4f513c9da",
+      "traceId": "ceadb871d3d87078",
+      "parentId": "3b977125eba16645",
+      "kind": "CLIENT",
+      "localEndpoint": {
+        "serviceName": "delivery"
+      },
+      "tags": {
+        "http.path": "/api/purchasehistory/endpoint_1"
+      }
+    },
+    {
+      "id": "3836eff4f513c9da",
+      "traceId": "ceadb871d3d87078",
+      "parentId": "3b977125eba16645",
+      "kind": "SERVER",
+      "localEndpoint": {
+        "serviceName": "purchasehistory"
+      },
+      "tags": {
+        "http.path": "/api/purchasehistory/endpoint_1"
+      }
+    },
+    {
+      "id": "5b036fa9e7c0c393",
+      "traceId": "ceadb871d3d87078",
+      "parentId": "3b977125eba16645",
+      "kind": "CLIENT",
+      "localEndpoint": {
+        "serviceName": "delivery"
+      },
+      "tags": {
+        "http.path": "/api/customer/endpoint_4"
+      }
+    },
+    {
+      "id": "5b036fa9e7c0c393",
+      "traceId": "ceadb871d3d87078",
+      "parentId": "3b977125eba16645",
+      "kind": "SERVER",
+      "localEndpoint": {
+        "serviceName": "customer"
+      },
+      "tags": {
+        "http.path": "/api/customer/endpoint_4"
+      }
+    },
+    {
+      "id": "3b977125eba16645",
+      "traceId": "ceadb871d3d87078",
+      "parentId": "99adda54e61233a3",
+      "kind": "SERVER",
+      "localEndpoint": {
+        "serviceName": "delivery"
+      },
+      "tags": {
+        "http.path": "/api/delivery/endpoint_1"
+      }
+    },
+    {
+      "id": "99adda54e61233a3",
+      "traceId": "ceadb871d3d87078",
+      "parentId": "44ef091285da5f43",
+      "kind": "CLIENT",
+      "localEndpoint": {
+        "serviceName": "sales"
+      },
+      "tags": {
+        "http.path": "/api/inventory/endpoint_2"
+      }
+    },
+    {
+      "id": "44ef091285da5f43",
+      "traceId": "ceadb871d3d87078",
+      "parentId": null,
+      "kind": "SERVER",
+      "localEndpoint": {
+        "serviceName": "sales"
+      },
+      "tags": {
+        "http.path": "/api/Sales/endpoint_1"
+      }
+    },
+    {
+      "id": "3b977125eba16645",
+      "traceId": "ceadb871d3d87078",
+      "parentId": "99adda54e61233a3",
+      "kind": "CLIENT",
+      "localEndpoint": {
+        "serviceName": "inventory"
+      },
+      "tags": {
+        "http.path": "/api/delivery/endpoint_1"
+      }
+    },
+    {
+      "id": "99adda54e61233a3",
+      "traceId": "ceadb871d3d87078",
+      "parentId": "44ef091285da5f43",
+      "kind": "SERVER",
+      "localEndpoint": {
+        "serviceName": "inventory"
+      },
+      "tags": {
+        "http.path": "/api/inventory/endpoint_2"
+      }
+    }
+  ],
+  [
+    {
+      "id": "4af8e3c248578e9a",
+      "traceId": "5ff3096818f86538",
+      "parentId": "9e45d61d07ebbfb5",
+      "kind": "SERVER",
+      "localEndpoint": {
+        "serviceName": "order"
+      },
+      "tags": {
+        "http.path": "/api/order/endpoint_3"
+      }
+    },
+    {
+      "id": "4af8e3c248578e9a",
+      "traceId": "5ff3096818f86538",
+      "parentId": "9e45d61d07ebbfb5",
+      "kind": "CLIENT",
+      "localEndpoint": {
+        "serviceName": "product"
+      },
+      "tags": {
+        "http.path": "/api/order/endpoint_3"
+      }
+    },
+    {
+      "id": "9e45d61d07ebbfb5",
+      "traceId": "5ff3096818f86538",
+      "parentId": "f54691d387f699ff",
+      "kind": "SERVER",
+      "localEndpoint": {
+        "serviceName": "product"
+      },
+      "tags": {
+        "http.path": "/api/product/endpoint_3"
+      }
+    },
+    {
+      "id": "9e45d61d07ebbfb5",
+      "traceId": "5ff3096818f86538",
+      "parentId": "f54691d387f699ff",
+      "kind": "CLIENT",
+      "localEndpoint": {
+        "serviceName": "shoppingcart"
+      },
+      "tags": {
+        "http.path": "/api/product/endpoint_3"
+      }
+    },
+    {
+      "id": "f54691d387f699ff",
+      "traceId": "5ff3096818f86538",
+      "parentId": "72832ec45dd7c27e",
+      "kind": "CLIENT",
+      "localEndpoint": {
+        "serviceName": "order"
+      },
+      "tags": {
+        "http.path": "/api/shoppingcart/endpoint_1"
+      }
+    },
+    {
+      "id": "72832ec45dd7c27e",
+      "traceId": "5ff3096818f86538",
+      "parentId": "7b0a21550bcd9855",
+      "kind": "SERVER",
+      "localEndpoint": {
+        "serviceName": "order"
+      },
+      "tags": {
+        "http.path": "/api/order/endpoint_2"
+      }
+    },
+    {
+      "id": "72832ec45dd7c27e",
+      "traceId": "5ff3096818f86538",
+      "parentId": "7b0a21550bcd9855",
+      "kind": "CLIENT",
+      "localEndpoint": {
+        "serviceName": "customer"
+      },
+      "tags": {
+        "http.path": "/api/order/endpoint_2"
+      }
+    },
+    {
+      "id": "f54691d387f699ff",
+      "traceId": "5ff3096818f86538",
+      "parentId": "72832ec45dd7c27e",
+      "kind": "SERVER",
+      "localEndpoint": {
+        "serviceName": "shoppingcart"
+      },
+      "tags": {
+        "http.path": "/api/shoppingcart/endpoint_1"
+      }
+    },
+    {
+      "id": "7b0a21550bcd9855",
+      "traceId": "5ff3096818f86538",
+      "parentId": null,
+      "kind": "SERVER",
+      "localEndpoint": {
+        "serviceName": "customer"
+      },
+      "tags": {
+        "http.path": "/api/Customer/endpoint_3"
+      }
+    }
+  ],
+  [
+    {
+      "id": "5e474d0c617613a7",
+      "traceId": "d5bbcce86efb7210",
+      "parentId": "914990b53b7ddf10",
+      "kind": "SERVER",
+      "localEndpoint": {
+        "serviceName": "product"
+      },
+      "tags": {
+        "http.path": "/api/product/endpoint_1"
+      }
+    },
+    {
+      "id": "5e474d0c617613a7",
+      "traceId": "d5bbcce86efb7210",
+      "parentId": "914990b53b7ddf10",
+      "kind": "CLIENT",
+      "localEndpoint": {
+        "serviceName": "order"
+      },
+      "tags": {
+        "http.path": "/api/product/endpoint_1"
+      }
+    },
+    {
+      "id": "29466fef74bcd6d3",
+      "traceId": "d5bbcce86efb7210",
+      "parentId": "914990b53b7ddf10",
+      "kind": "CLIENT",
+      "localEndpoint": {
+        "serviceName": "order"
+      },
+      "tags": {
+        "http.path": "/api/inventory/endpoint_1"
+      }
+    },
+    {
+      "id": "914990b53b7ddf10",
+      "traceId": "d5bbcce86efb7210",
+      "parentId": "ce6ad0506ebd430b",
+      "kind": "SERVER",
+      "localEndpoint": {
+        "serviceName": "order"
+      },
+      "tags": {
+        "http.path": "/api/order/endpoint_1"
+      }
+    },
+    {
+      "id": "29466fef74bcd6d3",
+      "traceId": "d5bbcce86efb7210",
+      "parentId": "914990b53b7ddf10",
+      "kind": "SERVER",
+      "localEndpoint": {
+        "serviceName": "inventory"
+      },
+      "tags": {
+        "http.path": "/api/inventory/endpoint_1"
+      }
+    },
+    {
+      "id": "914990b53b7ddf10",
+      "traceId": "d5bbcce86efb7210",
+      "parentId": "ce6ad0506ebd430b",
+      "kind": "CLIENT",
+      "localEndpoint": {
+        "serviceName": "customer"
+      },
+      "tags": {
+        "http.path": "/api/order/endpoint_1"
+      }
+    },
+    {
+      "id": "ce6ad0506ebd430b",
+      "traceId": "d5bbcce86efb7210",
+      "parentId": null,
+      "kind": "SERVER",
+      "localEndpoint": {
+        "serviceName": "customer"
+      },
+      "tags": {
+        "http.path": "/api/Customer/endpoint_1"
+      }
+    }
+  ]
+]

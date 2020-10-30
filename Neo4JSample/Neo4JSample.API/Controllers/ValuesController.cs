@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Neo4JSample.ConsoleApp.Services;
 using Neo4JSample.Settings;
 using static Neo4JSample.Neo4JClient;
@@ -13,6 +14,24 @@ namespace Neo4JSample.API.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private readonly IConfiguration _configuration;
+
+        //string url = "bolt://localhost:7687/db/actors";
+        //string username = "neo4j";
+        //string password = "test_pwd";
+
+        string url = "";
+        string username = "";
+        string password = "";
+
+        public ValuesController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+            url = _configuration["Neo4jDetails:Server"];
+            username = _configuration["Neo4jDetails:Username"];
+            password = _configuration["Neo4jDetails:Password"];
+        }
+
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
@@ -30,7 +49,7 @@ namespace Neo4JSample.API.Controllers
         [HttpGet("degrees")]
         public ActionResult GetDegree()
         {
-            var settings = ConnectionSettings.CreateBasicAuth("bolt://localhost:7687/db/actors", "neo4j", "test_pwd");
+            var settings = ConnectionSettings.CreateBasicAuth(url, username, password);
 
             using (var client = new Neo4JClient(settings))
             {
@@ -41,7 +60,7 @@ namespace Neo4JSample.API.Controllers
         [HttpGet("cc")]
         public ActionResult GetCC()
         {
-            var settings = ConnectionSettings.CreateBasicAuth("bolt://localhost:7687/db/actors", "neo4j", "test_pwd");
+            var settings = ConnectionSettings.CreateBasicAuth(url, username, password);
 
             using (var client = new Neo4JClient(settings))
             {
@@ -63,7 +82,7 @@ namespace Neo4JSample.API.Controllers
         [HttpGet("pathlengths")]
         public ActionResult GetPathLengths() 
         {
-            var settings = ConnectionSettings.CreateBasicAuth("bolt://localhost:7687/db/actors", "neo4j", "test_pwd");
+            var settings = ConnectionSettings.CreateBasicAuth(url, username, password);
 
             using (var client = new Neo4JClient(settings))
             {
@@ -78,7 +97,7 @@ namespace Neo4JSample.API.Controllers
         {
             var service = new MovieDataService();
 
-            var settings = ConnectionSettings.CreateBasicAuth("bolt://localhost:7687/db/actors", "neo4j", "test_pwd");
+            var settings = ConnectionSettings.CreateBasicAuth(url, username, password);
 
             using (var client = new Neo4JClient(settings))
             {

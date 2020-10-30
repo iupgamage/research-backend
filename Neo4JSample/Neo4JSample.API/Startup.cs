@@ -26,6 +26,7 @@ namespace Neo4JSample.API
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddHttpClient();
+            services.AddSwaggerGen();
 
             services.AddCors(options =>
             {
@@ -48,6 +49,13 @@ namespace Neo4JSample.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("../swagger/v1/swagger.json", "Neo4j");
+            });
 
             app.UseCors("AllowAll");
             app.UseMvc();
