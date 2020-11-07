@@ -1,0 +1,192 @@
+[
+  {
+    "service": {
+      "traceid": "null",
+      "name": "ui",
+      "endpoint": "null"
+    },
+    "fromservices": [
+    ],
+    "toservices": [
+      {
+        "traceid": "null",
+        "name": "supplier",
+        "endpoint": "null"
+      }
+    ]
+  },
+  {
+    "service": {
+      "traceid": "f591070d135f3527",
+      "name": "ui",
+      "endpoint": "/request_3"
+    },
+    "fromservices": [
+    ],
+    "toservices": [
+      {
+        "traceid": "f591070d135f3527",
+        "name": "supplier",
+        "endpoint": "/api/supplier/endpoint_1"
+      }
+    ]
+  },
+  {
+    "service": {
+      "traceid": "null",
+      "name": "supplier",
+      "endpoint": "null"
+    },
+    "fromservices": [
+      {
+        "traceid": "null",
+        "name": "ui",
+        "endpoint": "null"
+      }
+    ],
+    "toservices": [
+      {
+        "traceid": "null",
+        "name": "inventory",
+        "endpoint": "null"
+      }
+    ]
+  },
+  {
+    "service": {
+      "traceid": "f591070d135f3527",
+      "name": "supplier",
+      "endpoint": "/api/supplier/endpoint_1"
+    },
+    "fromservices": [
+      {
+        "traceid": "f591070d135f3527",
+        "name": "ui",
+        "endpoint": "/request_3"
+      }
+    ],
+    "toservices": [
+      {
+        "traceid": "f591070d135f3527",
+        "name": "inventory",
+        "endpoint": "/api/inventory/endpoint_3"
+      }
+    ]
+  },
+  {
+    "service": {
+      "traceid": "null",
+      "name": "inventory",
+      "endpoint": "null"
+    },
+    "fromservices": [
+      {
+        "traceid": "null",
+        "name": "supplier",
+        "endpoint": "null"
+      }
+    ],
+    "toservices": [
+      {
+        "traceid": "null",
+        "name": "account",
+        "endpoint": "null"
+      }
+    ]
+  },
+  {
+    "service": {
+      "traceid": "f591070d135f3527",
+      "name": "inventory",
+      "endpoint": "/api/inventory/endpoint_3"
+    },
+    "fromservices": [
+      {
+        "traceid": "f591070d135f3527",
+        "name": "supplier",
+        "endpoint": "/api/supplier/endpoint_1"
+      }
+    ],
+    "toservices": [
+      {
+        "traceid": "f591070d135f3527",
+        "name": "account",
+        "endpoint": "/api/account/endpoint_2"
+      }
+    ]
+  },
+  {
+    "service": {
+      "traceid": "null",
+      "name": "account",
+      "endpoint": "null"
+    },
+    "fromservices": [
+      {
+        "traceid": "null",
+        "name": "inventory",
+        "endpoint": "null"
+      }
+    ],
+    "toservices": [
+      {
+        "traceid": "null",
+        "name": "supplier",
+        "endpoint": "null"
+      }
+    ]
+  },
+  {
+    "service": {
+      "traceid": "f591070d135f3527",
+      "name": "account",
+      "endpoint": "/api/account/endpoint_2"
+    },
+    "fromservices": [
+      {
+        "traceid": "f591070d135f3527",
+        "name": "inventory",
+        "endpoint": "/api/inventory/endpoint_3"
+      }
+    ],
+    "toservices": [
+      {
+        "traceid": "f591070d135f3527",
+        "name": "supplier",
+        "endpoint": "/api/supplier/endpoint_2"
+      }
+    ]
+  },
+  {
+    "service": {
+      "traceid": "null",
+      "name": "supplier",
+      "endpoint": "null"
+    },
+    "fromservices": [
+      {
+        "traceid": "null",
+        "name": "account",
+        "endpoint": "null"
+      }
+    ],
+    "toservices": [
+    ]
+  },
+  {
+    "service": {
+      "traceid": "f591070d135f3527",
+      "name": "supplier",
+      "endpoint": "/api/supplier/endpoint_2"
+    },
+    "fromservices": [
+      {
+        "traceid": "f591070d135f3527",
+        "name": "account",
+        "endpoint": "/api/account/endpoint_2"
+      }
+    ],
+    "toservices": [
+    ]
+  }
+]

@@ -1,0 +1,234 @@
+[
+  {
+    "service": {
+      "traceid": "null",
+      "name": "ui",
+      "endpoint": "null"
+    },
+    "fromservices": [
+    ],
+    "toservices": [
+      {
+        "traceid": "null",
+        "name": "customer",
+        "endpoint": "null"
+      }
+    ]
+  },
+  {
+    "service": {
+      "traceid": "617eee31a5ba43ca",
+      "name": "ui",
+      "endpoint": "/request_4"
+    },
+    "fromservices": [
+    ],
+    "toservices": [
+      {
+        "traceid": "617eee31a5ba43ca",
+        "name": "customer",
+        "endpoint": "/api/customer/endpoint_3"
+      }
+    ]
+  },
+  {
+    "service": {
+      "traceid": "null",
+      "name": "customer",
+      "endpoint": "null"
+    },
+    "fromservices": [
+      {
+        "traceid": "null",
+        "name": "ui",
+        "endpoint": "null"
+      }
+    ],
+    "toservices": [
+      {
+        "traceid": "null",
+        "name": "order",
+        "endpoint": "null"
+      }
+    ]
+  },
+  {
+    "service": {
+      "traceid": "617eee31a5ba43ca",
+      "name": "customer",
+      "endpoint": "/api/customer/endpoint_3"
+    },
+    "fromservices": [
+      {
+        "traceid": "617eee31a5ba43ca",
+        "name": "ui",
+        "endpoint": "/request_4"
+      }
+    ],
+    "toservices": [
+      {
+        "traceid": "617eee31a5ba43ca",
+        "name": "order",
+        "endpoint": "/api/order/endpoint_2"
+      }
+    ]
+  },
+  {
+    "service": {
+      "traceid": "null",
+      "name": "order",
+      "endpoint": "null"
+    },
+    "fromservices": [
+      {
+        "traceid": "null",
+        "name": "customer",
+        "endpoint": "null"
+      }
+    ],
+    "toservices": [
+      {
+        "traceid": "null",
+        "name": "shoppingcart",
+        "endpoint": "null"
+      }
+    ]
+  },
+  {
+    "service": {
+      "traceid": "617eee31a5ba43ca",
+      "name": "order",
+      "endpoint": "/api/order/endpoint_2"
+    },
+    "fromservices": [
+      {
+        "traceid": "617eee31a5ba43ca",
+        "name": "customer",
+        "endpoint": "/api/customer/endpoint_3"
+      }
+    ],
+    "toservices": [
+      {
+        "traceid": "617eee31a5ba43ca",
+        "name": "shoppingcart",
+        "endpoint": "/api/shoppingcart/endpoint_1"
+      }
+    ]
+  },
+  {
+    "service": {
+      "traceid": "null",
+      "name": "shoppingcart",
+      "endpoint": "null"
+    },
+    "fromservices": [
+      {
+        "traceid": "null",
+        "name": "order",
+        "endpoint": "null"
+      }
+    ],
+    "toservices": [
+      {
+        "traceid": "null",
+        "name": "product",
+        "endpoint": "null"
+      }
+    ]
+  },
+  {
+    "service": {
+      "traceid": "617eee31a5ba43ca",
+      "name": "shoppingcart",
+      "endpoint": "/api/shoppingcart/endpoint_1"
+    },
+    "fromservices": [
+      {
+        "traceid": "617eee31a5ba43ca",
+        "name": "order",
+        "endpoint": "/api/order/endpoint_2"
+      }
+    ],
+    "toservices": [
+      {
+        "traceid": "617eee31a5ba43ca",
+        "name": "product",
+        "endpoint": "/api/product/endpoint_3"
+      }
+    ]
+  },
+  {
+    "service": {
+      "traceid": "null",
+      "name": "product",
+      "endpoint": "null"
+    },
+    "fromservices": [
+      {
+        "traceid": "null",
+        "name": "shoppingcart",
+        "endpoint": "null"
+      }
+    ],
+    "toservices": [
+      {
+        "traceid": "null",
+        "name": "order",
+        "endpoint": "null"
+      }
+    ]
+  },
+  {
+    "service": {
+      "traceid": "617eee31a5ba43ca",
+      "name": "product",
+      "endpoint": "/api/product/endpoint_3"
+    },
+    "fromservices": [
+      {
+        "traceid": "617eee31a5ba43ca",
+        "name": "shoppingcart",
+        "endpoint": "/api/shoppingcart/endpoint_1"
+      }
+    ],
+    "toservices": [
+      {
+        "traceid": "617eee31a5ba43ca",
+        "name": "order",
+        "endpoint": "/api/order/endpoint_3"
+      }
+    ]
+  },
+  {
+    "service": {
+      "traceid": "null",
+      "name": "order",
+      "endpoint": "null"
+    },
+    "fromservices": [
+      {
+        "traceid": "null",
+        "name": "product",
+        "endpoint": "null"
+      }
+    ],
+    "toservices": [
+    ]
+  },
+  {
+    "service": {
+      "traceid": "617eee31a5ba43ca",
+      "name": "order",
+      "endpoint": "/api/order/endpoint_3"
+    },
+    "fromservices": [
+      {
+        "traceid": "617eee31a5ba43ca",
+        "name": "product",
+        "endpoint": "/api/product/endpoint_3"
+      }
+    ],
+    "toservices": [
+    ]
+  }
+]

@@ -82,7 +82,19 @@ namespace Neo4JSample.API.Controllers
                         //await client_2.CreateServices(trace.services);
                         //await client.CreateFrontEnds(service.FrontEnds);
                         //await client.CreateDatabases(service.Databases);
+
+
+                        //if (traces_model[0] == trace)
+                        //    System.IO.File.WriteAllText("traces_1.json", JsonConvert.SerializeObject(trace.serviceinformation));
+                        //if (traces_model[1] == trace)
+                        //    System.IO.File.WriteAllText("traces_2.json", JsonConvert.SerializeObject(trace.serviceinformation));
+                        //if (traces_model[2] == trace)
+                        //    System.IO.File.WriteAllText("traces_3.json", JsonConvert.SerializeObject(trace.serviceinformation));
+                        //if (traces_model[3] == trace)
+                        //    System.IO.File.WriteAllText("traces_4.json", JsonConvert.SerializeObject(trace.serviceinformation));
                         await client_2.CreateRelationships_Service(trace.serviceinformation);
+
+
                         //await client.CreateRelationships_Database(service.Metadatas_database);
                         //await client.CreateRelationships_FrontEnd(service.Metadatas_frontend);
 
