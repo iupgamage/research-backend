@@ -46,7 +46,10 @@ namespace Neo4JSample.ConsoleApp.Services
         public void CreateInfo(SpanDto span, SpanDto parentSpan, List<SpanDto> childSpans, List<SpanDto> trace)
         {
             var serviceInfo = new ServiceInformation();
-            var serviceInfo_ch = new ServiceInformation(); 
+            var serviceInfo_ch = new ServiceInformation();
+
+            var svc = Convert.ToInt32(Community.service);
+            var clnt = Convert.ToInt32(Community.client);
 
             if (span != null)
             {
@@ -54,7 +57,8 @@ namespace Neo4JSample.ConsoleApp.Services
                 {
                     Name = span.localEndpoint.ServiceName,
                     TraceId = "null",
-                    EndPoint = "null"
+                    EndPoint = "null",
+                    Community = !string.IsNullOrEmpty(span.parentId) ? svc : clnt
                 };
                 serviceInfo.Service = service;
 
@@ -62,7 +66,8 @@ namespace Neo4JSample.ConsoleApp.Services
                 {
                     Name = span.localEndpoint.ServiceName,
                     TraceId = span.traceId,
-                    EndPoint = span.Tags.httpPath
+                    EndPoint = span.Tags.httpPath,
+                    Community = !string.IsNullOrEmpty(span.parentId) ? svc : clnt
                 };
                 serviceInfo_ch.Service = service_ch;
             }
@@ -73,7 +78,8 @@ namespace Neo4JSample.ConsoleApp.Services
                 {
                     Name = parentSpan.localEndpoint.ServiceName,
                     TraceId = "null",
-                    EndPoint = "null"
+                    EndPoint = "null",
+                    Community = !string.IsNullOrEmpty(parentSpan.parentId) ? svc : clnt
                 };
                 serviceInfo.FromServices.Add(parentService);
 
@@ -81,7 +87,8 @@ namespace Neo4JSample.ConsoleApp.Services
                 {
                     Name = parentSpan.localEndpoint.ServiceName,
                     TraceId = parentSpan.traceId,
-                    EndPoint = parentSpan.Tags.httpPath
+                    EndPoint = parentSpan.Tags.httpPath,
+                    Community = !string.IsNullOrEmpty(parentSpan.parentId) ? svc : clnt
                 };
                 serviceInfo_ch.FromServices.Add(parentService_ch);
             }
@@ -92,7 +99,8 @@ namespace Neo4JSample.ConsoleApp.Services
                 {
                     Name = x.localEndpoint.ServiceName,
                     TraceId = "null",
-                    EndPoint = "null"
+                    EndPoint = "null",
+                    Community = svc
                 }).ToList();
                 serviceInfo.ToServices = childServices;
 
@@ -100,7 +108,8 @@ namespace Neo4JSample.ConsoleApp.Services
                 {
                     Name = x.localEndpoint.ServiceName,
                     TraceId = x.traceId,
-                    EndPoint = x.Tags.httpPath
+                    EndPoint = x.Tags.httpPath,
+                    Community = svc
                 }).ToList();
                 serviceInfo_ch.ToServices = childServices_ch;
             }

@@ -24,5 +24,8 @@ namespace Neo4JSample.Model
 
         [JsonProperty("endpoint")]
         public string EndPoint { get; set; }
+
+        [JsonProperty("community")]
+        public int Community { get; set; }
     }
 }

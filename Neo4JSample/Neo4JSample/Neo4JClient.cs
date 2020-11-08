@@ -46,18 +46,18 @@ namespace Neo4JSample
                 .AppendLine("UNWIND $metadatas AS metadata")
                  // Find the Service:
                  .AppendLine("MERGE (m:Service { name: metadata.service.name, traceid: metadata.service.traceid })")
-                 //.AppendLine("SET m = metadata.service")
+                 .AppendLine("SET m = metadata.service")
                  // Create FromService Relationships:
                  .AppendLine("WITH metadata, m")
                  .AppendLine("UNWIND metadata.fromservices AS fromservice")
                  .AppendLine("MERGE (a:Service { name: fromservice.name, traceid: fromservice.traceid })")
-                 //.AppendLine("SET a = fromservice")
+                 .AppendLine("SET a = fromservice")
                  .AppendLine("MERGE (a)-[r:calls {traceid: metadata.service.traceid, endpoint: metadata.service.endpoint}]->(m)")
                  // Create ToService Relationships:
                  .AppendLine("WITH metadata, m")
                  .AppendLine("UNWIND metadata.toservices AS toservice")
                  .AppendLine("MERGE (c:Service { name: toservice.name, traceid: toservice.traceid })")
-                 //.AppendLine("SET c = toservice")
+                 .AppendLine("SET c = toservice")
                  .AppendLine("MERGE (m)-[r:calls {traceid: toservice.traceid, endpoint: toservice.endpoint}]->(c)")
                 .ToString();
 

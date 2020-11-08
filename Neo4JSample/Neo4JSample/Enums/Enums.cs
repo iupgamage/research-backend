@@ -9,4 +9,10 @@ namespace Neo4JSample.Enums
         SERVER,
         CLIENT
     }
+
+    public enum Community
+    {
+        service = 1,
+        client = 2
+    }
 }
