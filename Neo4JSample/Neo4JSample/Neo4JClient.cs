@@ -119,10 +119,13 @@ namespace Neo4JSample
         {
             List<PathLengths> pathLengthInfos = new List<PathLengths>();
 
+            int index = 1;
+
             string cypher = new StringBuilder()
                 .AppendLine("match p=(par:Service)-[r:calls*1..10]->(ch:Service)")
                  .AppendLine("where par.traceid<>'null' and ch.traceid<>'null'")
                 .AppendLine("return DISTINCT  par.traceid as traceid, max(length(p)) as length")
+                .AppendLine("ORDER BY length desc")
                 .ToString();
 
             using (var session = driver.Session())
@@ -132,10 +135,12 @@ namespace Neo4JSample
                 {
                     PathLengths pathLengthInfo = new PathLengths();
                     //var ServiceInfo = record["service"].As<INode>();
+                    pathLengthInfo.tracename = $"Trace {index}";
                     pathLengthInfo.traceid = record["traceid"].As<string>();
                     pathLengthInfo.length = record["length"].As<string>();
 
                     pathLengthInfos.Add(pathLengthInfo);
+                    index++;
                 }
             }
             return pathLengthInfos;
@@ -235,6 +240,7 @@ namespace Neo4JSample
 
         public class PathLengths
         {
+            public string tracename { get; set; }
             public string traceid { get; set; } 
             public string length { get; set; } 
         }
