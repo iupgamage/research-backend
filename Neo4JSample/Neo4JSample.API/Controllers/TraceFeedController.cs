@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,7 @@ namespace Neo4JSample.API.Controllers
             _configuration = configuration;
             url = _configuration["Neo4jDetails:Server"];
             username = _configuration["Neo4jDetails:Username"];
-            password= _configuration["Neo4jDetails:Password"];
+            password = _configuration["Neo4jDetails:Password"];
         }
 
         [HttpGet("gettraces")]
@@ -107,6 +108,56 @@ namespace Neo4JSample.API.Controllers
 
             }
 
+        }
+
+        [HttpGet("generateModels")]
+        public async Task<ActionResult> GenerateModels()
+        {
+            Thread.Sleep(5000);
+
+            return Ok("Success");
+
+            //var dataService = new MovieDataService();
+
+            //var settings = ConnectionSettings.CreateBasicAuth(url, username, password);
+
+            //using (var client = _factory.CreateClient())
+            //{
+            //    var requestMsg = new HttpRequestMessage(HttpMethod.Get, "http://localhost:9411/api/v2/traces");
+
+            //    var responseMsg = await client.SendAsync(requestMsg);
+
+            //    var data = await responseMsg.Content.ReadAsStringAsync();
+
+            //    var traces = JsonConvert.DeserializeObject<List<List<SpanDto>>>(data);
+
+            //    //write to json
+            //    System.IO.File.WriteAllText("traces.json", JsonConvert.SerializeObject(traces));
+
+            //    //return Ok(traces);
+
+            //}
+
+            //using (var client = _factory.CreateClient())
+            //{
+            //    //read from json
+            //    var tracesfromFile = JsonConvert.DeserializeObject<List<List<SpanDto>>>(System.IO.File.ReadAllText("traces.json"));
+
+            //    var traces_model = dataService.Create(tracesfromFile);
+
+            //    using (var client_2 = new Neo4JClient(settings))
+            //    {
+            //        //delete the existing graph first
+            //        await client_2.DeleteGraph();
+
+            //        foreach (var trace in traces_model)
+            //        {
+            //            await client_2.CreateRelationships_Service(trace.serviceinformation);
+            //        }
+            //    }
+
+            //    return Ok(traces_model);
+            //}
         }
     }
 }
