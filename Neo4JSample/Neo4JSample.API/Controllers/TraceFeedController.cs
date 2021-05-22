@@ -115,7 +115,9 @@ namespace Neo4JSample.API.Controllers
         {
             Thread.Sleep(5000);
 
-            return Ok("Success");
+            //return Ok("Success");
+
+            return BadRequest("Something went wrong.");
 
             //var dataService = new MovieDataService();
 
